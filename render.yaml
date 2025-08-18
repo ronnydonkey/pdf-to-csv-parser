@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: pdf-parser-api
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python api.py"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+    autoDeploy: false

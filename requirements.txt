@@ -1,0 +1,9 @@
+PyPDF2==3.0.1
+pdfplumber==0.10.3
+pytesseract==0.3.10
+Pillow==10.1.0
+pdf2image==1.16.3
+pandas==2.1.4
+numpy==1.26.2
+flask==3.0.0
+flask-cors==4.0.0
