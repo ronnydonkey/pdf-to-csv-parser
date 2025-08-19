@@ -31,7 +31,16 @@ def allowed_file(filename):
 @app.route('/health', methods=['GET'])
 def health():
     """Health check endpoint."""
-    return jsonify({'status': 'healthy', 'service': 'pdf-parser'})
+    return jsonify({
+        'status': 'healthy', 
+        'service': 'pdf-parser',
+        'version': '2.0',
+        'features': {
+            'pdf': True,
+            'csv': True,
+            'allowed_extensions': list(ALLOWED_EXTENSIONS)
+        }
+    })
 
 
 @app.before_request
