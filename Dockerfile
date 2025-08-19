@@ -1,5 +1,8 @@
 FROM python:3.11-slim
 
+# Force rebuild - Updated 2025-08-18
+ENV REBUILD_DATE=2025-08-18
+
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
     tesseract-ocr \
