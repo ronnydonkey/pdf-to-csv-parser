@@ -7,14 +7,17 @@ Provides REST endpoints for the Subscription Tracker.
 import os
 import json
 import tempfile
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify, send_file, make_response
 from flask_cors import CORS
 from werkzeug.utils import secure_filename
 from pdf_parser import PDFToCSVParser, BankStatementParser
 from bank_parser_enhanced import EnhancedBankParser
 
 app = Flask(__name__)
-CORS(app)
+# Configure CORS to allow requests from your frontend
+CORS(app, origins=["https://aarongreenberg.net", "http://localhost:3000", "https://*.vercel.app"], 
+     allow_headers=["Content-Type"],
+     methods=["GET", "POST", "OPTIONS"])
 
 # Configuration
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16MB max file size
@@ -31,7 +34,17 @@ def health():
     return jsonify({'status': 'healthy', 'service': 'pdf-parser'})
 
 
-@app.route('/parse', methods=['POST'])
+@app.before_request
+def handle_preflight():
+    if request.method == "OPTIONS":
+        response = make_response()
+        response.headers.add("Access-Control-Allow-Origin", "*")
+        response.headers.add("Access-Control-Allow-Headers", "Content-Type")
+        response.headers.add("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
+        return response
+
+
+@app.route('/parse', methods=['POST', 'OPTIONS'])
 def parse_pdf():
     """
     Parse a PDF file and return structured data.
