@@ -146,7 +146,8 @@ class EnhancedBankParser:
                 'subscriptions': subscriptions,
                 'total_monthly': sum(s['amount'] for s in subscriptions if s['frequency'] == 'monthly'),
                 'total_annual': sum(s['amount'] for s in subscriptions if s['frequency'] == 'annual'),
-                'transactions_analyzed': len(transactions)
+                'transactions_analyzed': len(transactions),
+                'all_transactions': transactions[:100]  # Return first 100 transactions for review
             }
             
         except Exception as e:
@@ -200,7 +201,8 @@ class EnhancedBankParser:
                 'subscriptions': subscriptions,
                 'total_monthly': sum(s['amount'] for s in subscriptions if s['frequency'] == 'monthly'),
                 'total_annual': sum(s['amount'] for s in subscriptions if s['frequency'] == 'annual'),
-                'transactions_analyzed': len(unique_transactions)
+                'transactions_analyzed': len(unique_transactions),
+                'all_transactions': unique_transactions[:100]  # Return first 100 transactions for review
             }
             
         except Exception as e:

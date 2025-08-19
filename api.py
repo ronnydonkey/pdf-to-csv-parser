@@ -81,7 +81,8 @@ def parse_pdf():
                             'total_annual': results.get('total_annual', 0),
                             'total_subscriptions': len(results.get('subscriptions', [])),
                             'transactions_analyzed': results.get('transactions_analyzed', 0)
-                        }
+                        },
+                        'transactions': results.get('all_transactions', [])
                     }
                 }
             else:
